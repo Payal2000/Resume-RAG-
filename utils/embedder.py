@@ -1,6 +1,9 @@
 from openai import OpenAI
-from config import OPENAI_API_KEY
+import streamlit as st
+from openai import OpenAI
 
+# Load API key from Streamlit secrets
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def embed_texts(texts):
