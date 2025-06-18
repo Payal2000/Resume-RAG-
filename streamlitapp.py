@@ -1,22 +1,21 @@
 import streamlit as st
+from openai import OpenAI
 from utils.pdf_loader import extract_resume_text
 from utils.text_splitter import split_text
 from utils.embedder import embed_texts, embed_query
 from utils.pinecone_store import upsert_embeddings, query_pinecone
-from openai import OpenAI
-from config import OPENAI_API_KEY
 import os
 import csv
 from io import StringIO, BytesIO
 from docx import Document
 from docx.shared import Pt
 
+# Set page layout
 st.set_page_config(page_title="Resume Q&A", layout="wide")
 st.title("📄 Resume Q&A with RAG")
 
-# Initialize OpenAI client
-client = OpenAI(api_key=OPENAI_API_KEY)
-
+# Initialize OpenAI
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 # Session state
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
